@@ -3,23 +3,18 @@ package com.example.SpringTest.Controller;
 import com.example.SpringTest.Handler.Employee;
 import com.example.SpringTest.service.EmployeeService;
 import lombok.Value;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 //@Controller + @ResponseBody or only @RestController
 @RestController
+@RequestMapping("/api/v1")
 public class EmployeeController {
     //@RequestMapping(value="/employees", method= RequestMethod.GET)
     //@ResponseBody
-    @Autowired
-    private EmployeeService eService;
-    @GetMapping("/employees")
-    public List<Employee> getEmployee()
-    {
-        return eService.getEmployee();
-    }
+
     @GetMapping("/employees/{id}")
     public String getEmployee(@PathVariable("id") Long id){
         return "Fetching employee details "+id;
