@@ -16,7 +16,7 @@ import java.util.List;
 public class EmployeeController {
     //@RequestMapping(value="/employees", method= RequestMethod.GET)
     //@ResponseBody
-
+//autoconfigure object
     @Autowired
     private EmployeeService eService;
     @GetMapping("/employees")
