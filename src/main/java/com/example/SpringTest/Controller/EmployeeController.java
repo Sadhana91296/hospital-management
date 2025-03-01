@@ -6,6 +6,7 @@ import com.example.SpringTest.service.EmployeeServiceImplement;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,10 +35,11 @@ public class EmployeeController {
     {
         return "Deleting Record for employee with id "+id;
     }
+
     @PostMapping("/employees")
-    public String saveEmployee(@RequestBody Employee employee)
+    public Employee saveEmployee(@RequestBody Employee employee)
     {
-        return "Saving the employee details to the database "+employee;
+        return eService.saveEmployee(employee);
     }
     @org.springframework.beans.factory.annotation.Value("${app.version}")
     private String appVersion;

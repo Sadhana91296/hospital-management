@@ -17,4 +17,8 @@ public class EmployeeServiceImplement implements EmployeeService{
 
         return eRepository.findAll();
     }
+    @Override
+    public Employee saveEmployee(Employee employee) {
+        return eRepository.save(employee);
+    }
 }

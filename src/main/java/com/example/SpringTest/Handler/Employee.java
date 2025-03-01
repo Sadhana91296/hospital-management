@@ -13,16 +13,26 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 @Table(name="employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="employeeNumber")
     private Long employeeNumber;
     @Column(name="firstName")
-    private String name;
-    @Column(name="age")
+    private String firstName;
+    @Column(name="lastName")
+    private String lastName;
+    @Column(name="extension")
+    private String extension;
+    @Column(name="officeCode")
+    private String officeCode;
+    @Column(name="Age")
     private Long age;
+    @Column(name="reportsTo")
+    private Long reportsTo;
+    @Column(name="jobTitle")
+    private String jobTitle;
     @Column(name="Location")
     private String location;
-    @Column(name="Email")
+    @Column(name="email")
     private String email;
     @Column(name="Department")
     private String department;
