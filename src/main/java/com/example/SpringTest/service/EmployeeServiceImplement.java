@@ -5,7 +5,6 @@ import com.example.SpringTest.Repositiry.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +36,10 @@ public class EmployeeServiceImplement implements EmployeeService{
     @Override
     public void deleteEmployee(Long id) {
         eRepository.deleteById(id);
+    }
+
+    @Override
+    public Employee updateEmployee(Employee employee) {
+        return eRepository.save(employee);
     }
 }

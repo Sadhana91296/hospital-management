@@ -53,8 +53,8 @@ public class EmployeeController {
     }
     @PutMapping("/employees/{id}")
     public Employee updateEmployee(@PathVariable("id") Long id,@RequestBody Employee employee){
-        System.out.println("Updating employee data");
-        return employee;
+            employee.setEmployeeNumber(id);
+             return eService.updateEmployee(employee);
 
     }
 
