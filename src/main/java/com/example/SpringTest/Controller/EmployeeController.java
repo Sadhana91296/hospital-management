@@ -26,8 +26,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public String getEmployee(@PathVariable("id") Long id){
-        return "Fetching employee details "+id;
+    public Employee getEmployee(@PathVariable("id") Long id){
+
+        return eService.getSingleEmployee(id);
     }
     //localhost:8080//employees?id=12
     @DeleteMapping("/employees")
