@@ -33,4 +33,9 @@ public class EmployeeServiceImplement implements EmployeeService{
 
 
     }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        eRepository.deleteById(id);
+    }
 }

@@ -32,9 +32,9 @@ public class EmployeeController {
     }
     //localhost:8080//employees?id=12
     @DeleteMapping("/employees")
-    public String deleteEmployee(@RequestParam("id") Long id)
+    public void deleteEmployeeByParam(@RequestParam("id") Long id)
     {
-        return "Deleting Record for employee with id "+id;
+        eService.deleteEmployee(id);
     }
 
     @PostMapping("/employees")
