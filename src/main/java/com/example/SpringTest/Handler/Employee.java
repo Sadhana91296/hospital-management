@@ -1,10 +1,18 @@
 package com.example.SpringTest.Handler;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jdk.jfr.Timestamp;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.web.WebProperties;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,25 +23,32 @@ public class Employee {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="employeeNumber")
+    @NonNull
     private Long employeeNumber;
-    @Column(name="firstName")
+    @NotNull(message = "First name should not be null")
     private String firstName;
-    @Column(name="lastName")
+
     private String lastName;
-    @Column(name="extension")
+
     private String extension;
-    @Column(name="officeCode")
+
     private String officeCode;
-    @Column(name="Age")
-    private Long age;
-    @Column(name="reportsTo")
+
+    private Long age=0L;
+
     private Long reportsTo;
-    @Column(name="jobTitle")
+
     private String jobTitle;
-    @Column(name="Location")
+
     private String location;
-    @Column(name="email")
+    @Email(message = "Enter valid email")
     private String email;
-    @Column(name="Department")
+
     private String department;
+    @Column(name="createdAt", nullable=false, updatable=false)
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name="updatedAt")
+    @UpdateTimestamp
+    private Date updatedAt;
 }

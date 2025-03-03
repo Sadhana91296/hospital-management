@@ -3,6 +3,7 @@ package com.example.SpringTest.Controller;
 import com.example.SpringTest.Handler.Employee;
 import com.example.SpringTest.service.EmployeeService;
 import com.example.SpringTest.service.EmployeeServiceImplement;
+import jakarta.validation.Valid;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,7 +39,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public Employee saveEmployee(@RequestBody Employee employee)
+    public Employee saveEmployee(@Valid @RequestBody Employee employee)
     {
         return eService.saveEmployee(employee);
     }
