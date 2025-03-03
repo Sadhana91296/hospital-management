@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,26 +24,29 @@ public class EmployeeController {
     @Autowired
     private EmployeeService eService;
     @GetMapping("/employees")
-    public List<Employee > getEmployee(){
-        return eService.getEmployee();
+    public ResponseEntity<List<Employee >> getEmployee(){
+        return new ResponseEntity<>(eService.getEmployee(), HttpStatus.OK);
     }
 
     @GetMapping("/employees/{id}")
-    public Employee getEmployee(@PathVariable("id") Long id){
+    public ResponseEntity<Employee> getEmployee(@PathVariable("id") Long id){
 
-        return eService.getSingleEmployee(id);
+        return new ResponseEntity<>(eService.getSingleEmployee(id),HttpStatus.OK);
     }
     //localhost:8080//employees?id=12
     @DeleteMapping("/employees")
-    public void deleteEmployeeByParam(@RequestParam("id") Long id)
+    public ResponseEntity<HttpStatus> deleteEmployeeByParam(@RequestParam("id") Long id)
     {
+
         eService.deleteEmployee(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/employees")
-    public Employee saveEmployee(@Valid @RequestBody Employee employee)
+    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody Employee employee)
     {
-        return eService.saveEmployee(employee);
+
+        return new ResponseEntity<>(eService.saveEmployee(employee),HttpStatus.CREATED);
     }
     @org.springframework.beans.factory.annotation.Value("${app.version}")
     private String appVersion;
@@ -53,9 +58,9 @@ public class EmployeeController {
         return appName+" - "+appVersion;
     }
     @PutMapping("/employees/{id}")
-    public Employee updateEmployee(@PathVariable("id") Long id,@RequestBody Employee employee){
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id,@RequestBody Employee employee){
             employee.setEmployeeNumber(id);
-             return eService.updateEmployee(employee);
+             return new ResponseEntity<>(eService.updateEmployee(employee),HttpStatus.OK);
 
     }
 
