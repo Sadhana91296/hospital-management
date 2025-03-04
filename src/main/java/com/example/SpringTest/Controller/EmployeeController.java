@@ -83,5 +83,10 @@ public class EmployeeController {
     {
         return new ResponseEntity<>(eService.getEmployeeByFirstNameContaining(keyword), HttpStatus.OK);
     }
+    @GetMapping("/employees/{firstName}/{location}")
+    public ResponseEntity<List<Employee>> getEmployeeByNameAndLocation(@PathVariable String firstName,@PathVariable String location)
+    {
+        return new ResponseEntity<>(eService.getEmployeeByNameAndLocation(firstName,location), HttpStatus.OK);
+    }
 
 }

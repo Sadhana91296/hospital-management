@@ -16,4 +16,5 @@ public interface EmployeeService {
     List<Employee> getEmployeesByFirstName(String firstName);
     List<Employee> getEmployeeByFirstNameAndLocation(String firstName, String location);
     List<Employee> getEmployeeByFirstNameContaining(String keyword);
+    List<Employee> getEmployeeByNameAndLocation(String firstName,String location);
 }

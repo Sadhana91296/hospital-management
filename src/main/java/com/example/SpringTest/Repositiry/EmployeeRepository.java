@@ -1,7 +1,9 @@
 package com.example.SpringTest.Repositiry;
 
 import com.example.SpringTest.Handler.Employee;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,7 @@ public interface EmployeeRepository extends PagingAndSortingRepository<Employee,
     List<Employee> findByFirstNameAndLocation(String firstName,String location);
     //select * from employee where firstName Like "%dha%";
 
-    List<Employee> findByFirstNameContaining(String keyword);
+    List<Employee> findByFirstNameContaining(String keyword, Sort sort);
+    @Query("From Employee where firstName=:firstName OR location=:location")
+    List<Employee> getEmployeeByNameAndLocation(String firstName,String location);
 }

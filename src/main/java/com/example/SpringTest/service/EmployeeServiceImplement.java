@@ -5,6 +5,7 @@ import com.example.SpringTest.Repositiry.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class EmployeeServiceImplement implements EmployeeService{
 
     @Override
     public List<Employee> getEmployee(int pageNumber,int pageSize) {
-        Pageable pages= PageRequest.of(pageNumber,pageSize);
+        Pageable pages= PageRequest.of(pageNumber,pageSize, Sort.Direction.DESC,"employeeNumber");
 
         return eRepository.findAll(pages).getContent();
     }
@@ -59,7 +60,13 @@ public class EmployeeServiceImplement implements EmployeeService{
 
     @Override
     public List<Employee> getEmployeeByFirstNameContaining(String keyword) {
-        return eRepository.findByFirstNameContaining(keyword);
+        Sort sort=Sort.by(Sort.Direction.DESC,"employeeNumber");
+        return eRepository.findByFirstNameContaining(keyword,sort);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByNameAndLocation(String firstName, String location) {
+        return eRepository.getEmployeeByNameAndLocation(firstName,location);
     }
 
     @Override
