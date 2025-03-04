@@ -23,9 +23,14 @@ public class EmployeeController {
 //autoconfigure object
     @Autowired
     private EmployeeService eService;
+    @GetMapping("employee/All")
+    public List<Employee> getEmployee()
+    {
+        return eService.getEmployeeAll();
+    }
     @GetMapping("/employees")
-    public ResponseEntity<List<Employee >> getEmployee(){
-        return new ResponseEntity<>(eService.getEmployee(), HttpStatus.OK);
+    public ResponseEntity<List<Employee >> getEmployee(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return new ResponseEntity<>(eService.getEmployee(pageNumber,pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/employees/{id}")
@@ -62,6 +67,21 @@ public class EmployeeController {
             employee.setEmployeeNumber(id);
              return new ResponseEntity<>(eService.updateEmployee(employee),HttpStatus.OK);
 
+    }
+    @GetMapping("/employees/filterByName")
+    public ResponseEntity<List<Employee>> getEmployeeByFirstName(@RequestParam String firstName)
+    {
+        return new ResponseEntity<>(eService.getEmployeesByFirstName(firstName),HttpStatus.OK);
+    }
+    @GetMapping("/employees/filterByNameAndLocation")
+    public ResponseEntity<List<Employee>> getEmployeeByFirstNameAndLocation(@RequestParam String firstName,@RequestParam String location)
+    {
+        return new ResponseEntity<>(eService.getEmployeeByFirstNameAndLocation(firstName,location), HttpStatus.OK);
+    }
+    @GetMapping("/employees/filterByNameKeyword")
+    public ResponseEntity<List<Employee>> getEmployeeByFirstNameKeyword(@RequestParam String keyword)
+    {
+        return new ResponseEntity<>(eService.getEmployeeByFirstNameContaining(keyword), HttpStatus.OK);
     }
 
 }

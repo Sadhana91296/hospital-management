@@ -3,6 +3,8 @@ package com.example.SpringTest.service;
 import com.example.SpringTest.Handler.Employee;
 import com.example.SpringTest.Repositiry.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,17 @@ public class EmployeeServiceImplement implements EmployeeService{
    private EmployeeRepository eRepository;
 
     @Override
-    public List<Employee> getEmployee() {
+    public List<Employee> getEmployee(int pageNumber,int pageSize) {
+        Pageable pages= PageRequest.of(pageNumber,pageSize);
 
+        return eRepository.findAll(pages).getContent();
+    }
+
+    @Override
+    public List<Employee> getEmployeeAll() {
         return eRepository.findAll();
     }
+
     @Override
     public Employee saveEmployee(Employee employee) {
         return eRepository.save(employee);
@@ -36,6 +45,21 @@ public class EmployeeServiceImplement implements EmployeeService{
     @Override
     public void deleteEmployee(Long id) {
         eRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByFirstName(String firstName) {
+        return eRepository.findByFirstName(firstName);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByFirstNameAndLocation(String firstName, String location) {
+        return eRepository.findByFirstNameAndLocation(firstName, location);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByFirstNameContaining(String keyword) {
+        return eRepository.findByFirstNameContaining(keyword);
     }
 
     @Override
