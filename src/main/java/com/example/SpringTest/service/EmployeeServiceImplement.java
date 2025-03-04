@@ -70,6 +70,11 @@ public class EmployeeServiceImplement implements EmployeeService{
     }
 
     @Override
+    public Integer deleteByEmployeeName(String firstName) {
+        return eRepository.deleteEmployeeByName(firstName);
+    }
+
+    @Override
     public Employee updateEmployee(Employee employee) {
         return eRepository.save(employee);
     }

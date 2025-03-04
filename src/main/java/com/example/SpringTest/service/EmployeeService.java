@@ -17,4 +17,5 @@ public interface EmployeeService {
     List<Employee> getEmployeeByFirstNameAndLocation(String firstName, String location);
     List<Employee> getEmployeeByFirstNameContaining(String keyword);
     List<Employee> getEmployeeByNameAndLocation(String firstName,String location);
+    Integer deleteByEmployeeName(String firstName);
 }
