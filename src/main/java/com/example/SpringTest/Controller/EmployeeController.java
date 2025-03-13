@@ -1,15 +1,16 @@
 package com.example.SpringTest.Controller;
 
+import com.example.SpringTest.Handler.Department;
 import com.example.SpringTest.Handler.Employee;
+import com.example.SpringTest.Handler.Employee2;
+import com.example.SpringTest.Repositiry.DepartmentRepository;
+import com.example.SpringTest.Repositiry.Employee2Repository;
+import com.example.SpringTest.request.Employee2Request;
 import com.example.SpringTest.service.EmployeeService;
-import com.example.SpringTest.service.EmployeeServiceImplement;
 import jakarta.validation.Valid;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,10 @@ public class EmployeeController {
 //autoconfigure object
     @Autowired
     private EmployeeService eService;
+    @Autowired
+    private DepartmentRepository dRepo;
+    @Autowired
+    private Employee2Repository e2Repo;
     @GetMapping("employee/All")
     public List<Employee> getEmployee()
     {
@@ -94,4 +99,17 @@ public class EmployeeController {
         return new ResponseEntity<>(eService.deleteByEmployeeName(firstName)+" number of employee affected", HttpStatus.OK);
     }
 
+    @PostMapping("/employees2")
+    public ResponseEntity<Employee2> saveEmployee(@Valid @RequestBody Employee2Request eRequest)
+    {
+        Department dept=new Department();
+        dept.setName(eRequest.getDepartment());
+        dept=dRepo.save(dept);
+
+        Employee2 employee2=new Employee2(eRequest);
+        employee2.setDepartment(dept);
+
+        employee2=e2Repo.save(employee2);
+        return new ResponseEntity<Employee2>(employee2,HttpStatus.CREATED);
+    }
 }
